@@ -12,6 +12,8 @@ public class ListOfFlights {
 
     private final Map<String, Flight> flights;
     private final Map<String, Plane> planes;
+    TravelTime travelHours = (dist, avg) -> (dist / avg);
+    TravelTime travelminutes = (dist, avg) -> (int) (((dist / (avg * 1.0)) - ((dist / avg))) * 60);
 
     public ListOfFlights() {
         flights = ReadFiles.readFlights();
@@ -22,8 +24,7 @@ public class ListOfFlights {
     public void showFlights() {
         AtomicInteger index = new AtomicInteger();
         index.set(1);
-        TravelTime travelHours = (dist, avg) -> (dist / avg);
-        TravelTime travelminutes = (dist, avg) -> (int) (((dist / (avg * 1.0)) - ((dist / avg))) * 60);
+
         flights.forEach((key, flight) -> System.out.println(index.getAndIncrement() + "." + flight + "Travel time = "
                 + travelHours.calculateTime(flight.getDistance(),planes.get(flight.getPlane()).getAverageSpeed()) + " hours "
                 + travelminutes.calculateTime(flight.getDistance(),planes.get(flight.getPlane()).getAverageSpeed()) + " minutes"));
