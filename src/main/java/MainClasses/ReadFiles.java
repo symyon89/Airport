@@ -129,7 +129,7 @@ public class ReadFiles {
         File file = new File(seatsTxt);
         try (FileReader fileReader = new FileReader(file); BufferedReader bufferedReader = new BufferedReader(fileReader)) {
             String line;
-            while ((line = bufferedReader.readLine()) != null || !line.isEmpty()) {
+            while ((line = bufferedReader.readLine()) != null ) {
                 List<String> list = List.of(line.split(","));
                 listOfSeats.put(list.get(0), new Seats());
             }
