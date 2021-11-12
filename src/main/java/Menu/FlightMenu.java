@@ -13,6 +13,7 @@ public class FlightMenu {
         System.out.println("2.Add Flight");
         System.out.println("3.Update Flight");
         System.out.println("4.Delete Flight");
+        System.out.println("5.Search by departure city");
         System.out.println("0.Exit");
         System.out.print("Choose option :");
     }
@@ -31,6 +32,7 @@ public class FlightMenu {
             case 2 -> flights.addFlight();
             case 3 -> flights.updateFlight();
             case 4 -> flights.deleteFlight();
+            case 5 -> flights.showFlightsByDepartureCity();
             case 0 -> System.out.println("Goodbye!");
             default -> System.out.println("Invalid option");
         }

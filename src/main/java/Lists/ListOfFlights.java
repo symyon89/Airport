@@ -21,6 +21,8 @@ public class ListOfFlights {
     private final TravelTime travelHours = (dist, avg) -> (dist / avg);
     private final TravelTime travelminutes = (dist, avg) -> (int) (((dist / (avg * 1.0)) - ((dist / avg))) * 60);
     private List<String> flightList = new ArrayList<>();
+    Scanner scannerText = new Scanner(System.in);
+    Scanner scannerNumber = new Scanner(System.in);
 
     public ListOfFlights() {
         Runnable readFlights = () -> flights = ReadFiles.readFlights();
@@ -64,12 +66,13 @@ public class ListOfFlights {
 
     public void updateFlight() {
 
-        Scanner scannerNumber = new Scanner(System.in);
         showFlights();
         System.out.println("Choose Flight to update");
         int flightIndex = scannerNumber.nextInt();
-        if (flightIndex > flightList.size() || flightIndex < 1) {
-            System.out.println("Invalid flight selected");
+        try {
+            checkFlightIndex(flightIndex);
+        } catch (WrongIndexException e) {
+            System.out.println(e.getMessage());
             return;
         }
         String flightCode = flightList.get(flightIndex - 1);
@@ -85,7 +88,6 @@ public class ListOfFlights {
 
     }
     public void deleteFlight(){
-        Scanner scannerNumber = new Scanner(System.in);
         showFlights();
         System.out.println("Choose Flight to delete");
         int flightIndex = scannerNumber.nextInt();
@@ -99,9 +101,24 @@ public class ListOfFlights {
         ReadFiles.updateFlights(flights);
     }
 
+    public void showFlightsByDepartureCity(){
+        System.out.println("Enter city :");
+        String city = scannerText.nextLine();
+        index.set(1);
+        flights.forEach((key, flight) -> {
+            if (city.equalsIgnoreCase(flight.getDepartureCity())) {
+                System.out.println(index.getAndIncrement() + "." + flight + " Travel time = "
+                        + travelHours.calculateTime(flight.getDistance(), planes.get(flight.getPlane()).getAverageSpeed()) + " hours "
+                        + travelminutes.calculateTime(flight.getDistance(), planes.get(flight.getPlane()).getAverageSpeed()) + " minutes");
+            }
+        });
+        if (index.get() == 1){
+            System.out.println("No flight found for " + city);
+        }
+    }
+
     private void newFlight(Flight flight) throws WrongIndexException {
-        Scanner scannerText = new Scanner(System.in);
-        Scanner scannerNumber = new Scanner(System.in);
+
         List<String> listOfPlanes = showPlanes();
         System.out.println("Choose plane for your flight :");
         int option = scannerNumber.nextInt();
@@ -133,7 +150,6 @@ public class ListOfFlights {
     }
 
     private void enterDate(Flight flight) {
-        Scanner scannerNumber = new Scanner(System.in);
         System.out.println("Enter departure hour :");
         int hour = scannerNumber.nextInt();
         System.out.println("Enter departure minutes :");
