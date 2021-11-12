@@ -1,6 +1,7 @@
 package Lists;
 
 import Exceptions.WrongDateException;
+import Exceptions.WrongIndexException;
 import MainClasses.Flight;
 import MainClasses.Plane;
 import MainClasses.ReadFiles;
@@ -42,57 +43,69 @@ public class ListOfFlights {
         index.set(1);
         flights.forEach((key, flight) -> {
             System.out.println(index.getAndIncrement() + "." + flight + " Travel time = "
-                    + travelHours.calculateTime(flight.getDistance(),planes.get(flight.getPlane()).getAverageSpeed()) + " hours "
-                    + travelminutes.calculateTime(flight.getDistance(),planes.get(flight.getPlane()).getAverageSpeed()) + " minutes");
+                    + travelHours.calculateTime(flight.getDistance(), planes.get(flight.getPlane()).getAverageSpeed()) + " hours "
+                    + travelminutes.calculateTime(flight.getDistance(), planes.get(flight.getPlane()).getAverageSpeed()) + " minutes");
             flightList.add(flight.getFlight());
         });
     }
 
-    public void addFlight(){
+    public void addFlight() {
         Flight flight = new Flight();
-        List<String> listOfPlanes = showPlanes();
-        System.out.println("Choose plane for your flight :");
-        Scanner scannerNumber = new Scanner(System.in);
-        Scanner scannerText = new Scanner(System.in);
-        int option = scannerNumber.nextInt();
-        if(option > planes.size() || option < 1){
-            System.out.println("Invalid plane selected");
+        try {
+            newFlight(flight);
+        } catch (WrongIndexException e) {
+            System.out.println(e.getMessage());
             return;
         }
-        flight.setPlane(listOfPlanes.get(option-1));
-        System.out.println("Enter flight code : ");
-        flight.setFlight(scannerText.nextLine());
-        System.out.println("Enter departure city :");
-        flight.setDepartureCity(scannerText.nextLine());
-        System.out.println("Enter destination city :");
-        flight.setDestinationCity(scannerText.nextLine());
-        System.out.println("Enter distance :");
-        flight.setDistance(scannerNumber.nextInt());
-        enterDate(flight);
         flights.put(flight.getFlight(), flight);
         ReadFiles.updateFlights(flights);
 
     }
-    public void updateFlight(){
-        Scanner scannerText = new Scanner(System.in);
+
+    public void updateFlight() {
+
         Scanner scannerNumber = new Scanner(System.in);
         showFlights();
         System.out.println("Choose Flight to update");
         int flightIndex = scannerNumber.nextInt();
-        if(flightIndex > flightList.size() || flightIndex < 1){
+        if (flightIndex > flightList.size() || flightIndex < 1) {
             System.out.println("Invalid flight selected");
             return;
         }
         String flightCode = flightList.get(flightIndex - 1);
         Flight flight = new Flight();
+        try {
+            newFlight(flight);
+        } catch (WrongIndexException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+        flights.replace(flightCode, flight);
+        ReadFiles.updateFlights(flights);
+
+    }
+    public void deleteFlight(){
+        Scanner scannerNumber = new Scanner(System.in);
+        showFlights();
+        System.out.println("Choose Flight to delete");
+        int flightIndex = scannerNumber.nextInt();
+        try {
+            checkFlightIndex(flightIndex);
+        } catch (WrongIndexException e) {
+            System.out.println(e.getMessage());
+        }
+        String flightCode = flightList.get(flightIndex - 1);
+        flights.remove(flightCode);
+    }
+
+    private void newFlight(Flight flight) throws WrongIndexException {
+        Scanner scannerText = new Scanner(System.in);
+        Scanner scannerNumber = new Scanner(System.in);
         List<String> listOfPlanes = showPlanes();
         System.out.println("Choose plane for your flight :");
         int option = scannerNumber.nextInt();
-        if(option > planes.size() || option < 1){
-            System.out.println("Invalid plane selected");
-            return;
-        }
-        flight.setPlane(listOfPlanes.get(option-1));
+        checkPlaneIndex(option);
+        flight.setPlane(listOfPlanes.get(option - 1));
         System.out.println("Enter flight code : ");
         flight.setFlight(scannerText.nextLine());
         System.out.println("Enter departure city :");
@@ -102,28 +115,40 @@ public class ListOfFlights {
         System.out.println("Enter distance :");
         flight.setDistance(scannerNumber.nextInt());
         enterDate(flight);
-        flights.replace(flightCode, flight);
-        ReadFiles.updateFlights(flights);
     }
 
-    private void enterDate(Flight flight){
+    private void checkPlaneIndex(int option) throws WrongIndexException {
+        if (option > planes.size() || option < 1) {
+            System.out.println("Invalid plane selected");
+            throw new WrongIndexException();
+        }
+    }
+
+    private void checkFlightIndex(int option) throws WrongIndexException {
+        if (option > flightList.size() || option < 1) {
+            System.out.println("Invalid Flight selected");
+            throw new WrongIndexException();
+        }
+    }
+
+    private void enterDate(Flight flight) {
         Scanner scannerNumber = new Scanner(System.in);
-        System.out.println("Enter departure hour");
+        System.out.println("Enter departure hour :");
         int hour = scannerNumber.nextInt();
-        System.out.println("Enter departure minutes");
+        System.out.println("Enter departure minutes :");
         int minutes = scannerNumber.nextInt();
         try {
-            flight.setDepartureTime(hour,minutes);
-        }catch (WrongDateException e){
+            flight.setDepartureTime(hour, minutes);
+        } catch (WrongDateException e) {
             System.out.println(e.getMessage());
             enterDate(flight);
         }
     }
 
-    private List<String>  showPlanes(){
+    private List<String> showPlanes() {
         index.set(1);
         List<String> listOfPlanes = new ArrayList<>();
-        planes.forEach((key, plane) ->{
+        planes.forEach((key, plane) -> {
             System.out.println(index + "." + plane);
             listOfPlanes.add(key);
         });
