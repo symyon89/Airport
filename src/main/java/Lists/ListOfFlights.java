@@ -96,6 +96,7 @@ public class ListOfFlights {
         }
         String flightCode = flightList.get(flightIndex - 1);
         flights.remove(flightCode);
+        ReadFiles.updateFlights(flights);
     }
 
     private void newFlight(Flight flight) throws WrongIndexException {
