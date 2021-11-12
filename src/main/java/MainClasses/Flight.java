@@ -12,7 +12,7 @@ public class Flight {
     private int distance;
     LocalTime departureTime;
 
-    public Flight(String plane,String flight, String destinationCity, String departureCity, int distance, LocalTime departureTime) {
+    public Flight(String plane,String flight, String departureCity, String destinationCity, int distance, LocalTime departureTime) {
         this.flight = flight;
         this.plane = plane;
         this.destinationCity = destinationCity;
@@ -94,8 +94,8 @@ public class Flight {
         return "Flight : " +
                 "flight='" + flight + '\'' +
                 ", plane='" + plane + '\'' +
-                ", destinationCity='" + destinationCity + '\'' +
                 ", departureCity='" + departureCity + '\'' +
+                ", destinationCity='" + destinationCity + '\'' +
                 ", distance=" + distance +
                 ", departureTime=" + departureTime;
     }

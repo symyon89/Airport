@@ -116,6 +116,39 @@ public class ListOfFlights {
             System.out.println("No flight found for " + city);
         }
     }
+    public void showFlightsByDestinationCity(){
+        System.out.println("Enter city :");
+        String city = scannerText.nextLine();
+        index.set(1);
+        flights.forEach((key, flight) -> {
+            if (city.equalsIgnoreCase(flight.getDestinationCity())) {
+                System.out.println(index.getAndIncrement() + "." + flight + " Travel time = "
+                        + travelHours.calculateTime(flight.getDistance(), planes.get(flight.getPlane()).getAverageSpeed()) + " hours "
+                        + travelminutes.calculateTime(flight.getDistance(), planes.get(flight.getPlane()).getAverageSpeed()) + " minutes");
+            }
+        });
+        if (index.get() == 1){
+            System.out.println("No flight found for " + city);
+        }
+    }
+    public void showFlightsByDestinationAndDepartureCity(){
+        System.out.println("Enter departure city :");
+        String departureCity = scannerText.nextLine();
+        System.out.println("Enter arrival city :");
+        String arrivalCity = scannerText.nextLine();
+        index.set(1);
+        flights.forEach((key, flight) -> {
+            if (departureCity.equalsIgnoreCase(flight.getDepartureCity()) && arrivalCity.equalsIgnoreCase(flight.getDestinationCity())) {
+                System.out.println(index.getAndIncrement() + "." + flight + " Travel time = "
+                        + travelHours.calculateTime(flight.getDistance(), planes.get(flight.getPlane()).getAverageSpeed()) + " hours "
+                        + travelminutes.calculateTime(flight.getDistance(), planes.get(flight.getPlane()).getAverageSpeed()) + " minutes");
+            }
+        });
+        if (index.get() == 1){
+            System.out.println("No flight found for " + departureCity + " - " + arrivalCity);
+        }
+    }
+
 
     private void newFlight(Flight flight) throws WrongIndexException {
 
