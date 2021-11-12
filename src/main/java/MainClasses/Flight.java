@@ -1,5 +1,7 @@
 package MainClasses;
 
+import Exceptions.WrongDateException;
+
 import java.time.LocalTime;
 
 public class Flight {
@@ -68,6 +70,23 @@ public class Flight {
 
     public void setDepartureTime(LocalTime departureTime) {
         this.departureTime = departureTime;
+    }
+
+    public void setDepartureTime (int hour,int minutes) throws WrongDateException {
+        checkHour(hour);
+        checkMinutes(minutes);
+        this.departureTime = LocalTime.of(hour,minutes);
+    }
+
+    private void checkHour(int hour) throws WrongDateException {
+        if(hour < 0 || hour > 23){
+            throw new WrongDateException();
+        }
+    }
+    private void checkMinutes(int minutes) throws WrongDateException{
+        if (minutes < 0 || minutes >59) {
+            throw new WrongDateException();
+        }
     }
 
     @Override

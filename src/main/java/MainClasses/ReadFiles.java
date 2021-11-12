@@ -29,7 +29,7 @@ public class ReadFiles {
         return listOfFlights;
     }
 
-    private void updateFlights(Map<String, Flight> flights) {
+    public static void updateFlights(Map<String, Flight> flights) {
         Runnable saveFlights = () -> {
             File file = new File(flightsTxt);
             try (FileWriter fileWriter = new FileWriter(file)) {
@@ -67,7 +67,7 @@ public class ReadFiles {
         return listOfPassengers;
     }
 
-    private void updatePassengers(Map<String, Passenger> passengers) {
+    public static void updatePassengers(Map<String, Passenger> passengers) {
         Runnable savePassengers = () -> {
             File file = new File(flightsTxt);
             try (FileWriter fileWriter = new FileWriter(file)) {
@@ -103,7 +103,7 @@ public class ReadFiles {
         return listOfPlanes;
     }
 
-    private void updatePlanes(Map<String, Plane> planes) {
+    public static void updatePlanes(Map<String, Plane> planes) {
         Runnable savePlanes = () -> {
             File file = new File(flightsTxt);
             try (FileWriter fileWriter = new FileWriter(file)) {

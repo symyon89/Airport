@@ -38,4 +38,12 @@ public class Plane {
     public void setNumebrOfSeats(int numebrOfSeats) {
         this.numebrOfSeats = numebrOfSeats;
     }
+
+    @Override
+    public String toString() {
+        return "Plane : " +
+                "planeName='" + planeName + '\'' +
+                ", averageSpeed=" + averageSpeed +
+                ", numebrOfSeats=" + numebrOfSeats;
+    }
 }
