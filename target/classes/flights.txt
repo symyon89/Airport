@@ -1,3 +1,4 @@
+boeing 200,BUC557,Bucuresti,Viena,1500,250,13,1
 boeing 727,ATT555,Miami,Bucurest,8000,300,13,55
 boeing 727,ANN233,Londra,Paris,1500,300,12,33
 boeing 727,ATH5544,Paris,Brasov,1700,297,12,33

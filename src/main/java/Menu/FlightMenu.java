@@ -37,6 +37,7 @@ public class FlightMenu {
             case 5 -> flights.showFlightsByDepartureCity();
             case 6 -> flights.showFlightsByDestinationCity();
             case 7 -> flights.showFlightsByDestinationAndDepartureCity();
+            case 0 -> System.out.println();
             default -> System.out.println("Invalid option");
         }
     }
