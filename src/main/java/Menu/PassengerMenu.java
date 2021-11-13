@@ -33,7 +33,6 @@ public class PassengerMenu {
             case 3 -> passengers.updateFlightReservation();
             case 4 -> passengers.deleteFlightReservation();
             case 5 -> passengers.showPassengersByPlaneName();
-            case 0 -> System.out.println("Goodbye!");
             default -> System.out.println("Invalid option");
         }
     }

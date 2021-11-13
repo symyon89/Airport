@@ -19,7 +19,7 @@ public class MainMenu {
         System.out.println("2.Passenger menu");
         System.out.println("3.Plane menu");
         System.out.println("0.Exit");
-        System.out.println("Choose an option");
+        System.out.println("Choose an option : ");
     }
 
     private void menuAction(int index){
