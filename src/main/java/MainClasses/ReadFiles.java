@@ -69,7 +69,7 @@ public class ReadFiles {
 
     public static void updatePassengers(Map<String, Passenger> passengers) {
         Runnable savePassengers = () -> {
-            File file = new File(flightsTxt);
+            File file = new File(passengersTxt);
             try (FileWriter fileWriter = new FileWriter(file)) {
                 final StringBuilder stringBuilder = new StringBuilder();
                 passengers.forEach((key, passenger) -> stringBuilder
@@ -105,7 +105,7 @@ public class ReadFiles {
 
     public static void updatePlanes(Map<String, Plane> planes) {
         Runnable savePlanes = () -> {
-            File file = new File(flightsTxt);
+            File file = new File(planesTxt);
             try (FileWriter fileWriter = new FileWriter(file)) {
                 final StringBuilder stringBuilder = new StringBuilder();
                 planes.forEach((key, plane) -> stringBuilder

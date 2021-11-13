@@ -38,6 +38,7 @@ public class ListOfPlanes {
     }
     public void addPlane() {
         Plane plane = new Plane();
+        enterPlaneDetails(plane);
         planes.put(plane.getPlaneName(),plane);
         ReadFiles.updatePlanes(planes);
     }
@@ -64,6 +65,7 @@ public class ListOfPlanes {
         Plane plane = new Plane();
         enterPlaneDetails(plane);
         planes.replace(planeKey,plane);
+        ReadFiles.updatePlanes(planes);
     }
     public void deletePlane() {
         showPlanes();
@@ -76,6 +78,7 @@ public class ListOfPlanes {
         }
         String planeKey = listPlanes.get(option - 1);
         planes.remove(planeKey);
+        ReadFiles.updatePlanes(planes);
     }
     public void searchByPlaneName(){
         System.out.println("Enter plane name ");

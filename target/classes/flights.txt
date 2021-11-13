@@ -1,4 +1,3 @@
-boeing 727,ATT555,Miami,Bucuresti,8000,13,55
-boeing 727,ANN233,Londra,Paris,1500,12,33
-boeing 727,ATH5544,Paris,Brasov,1700,12,33
-boeing 727,ATH888,Brasov,Londra,1200,12,16
+boeing 200,650,250
+boeing 727,500,300
+boeing 200,200,120
