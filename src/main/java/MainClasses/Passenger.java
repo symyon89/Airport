@@ -4,21 +4,41 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Passenger {
+    private int idReservation;
     private String firstname;
     private String lastname;
     private String flight;
     private String idNumber;
+    private int seats;
     private LocalDateTime dateOfAquisition;
 
-    public Passenger(String firstname, String lastname, String flight, String idNumber, LocalDateTime dateOfAquisition) {
+    public Passenger(int idReservation,String firstname, String lastname, String flight, String idNumber, int seats,LocalDateTime dateOfAquisition) {
+        this.idReservation = idReservation;
         this.firstname = firstname;
         this.lastname = lastname;
         this.flight = flight;
         this.idNumber = idNumber;
         this.dateOfAquisition = dateOfAquisition;
+        this.seats = seats;
     }
 
     public Passenger() {
+    }
+
+    public int getSeats() {
+        return seats;
+    }
+
+    public void setSeats(int seats) {
+        this.seats = seats;
+    }
+
+    public int getIdReservation() {
+        return idReservation;
+    }
+
+    public void setIdReservation(int idReservation) {
+        this.idReservation = idReservation;
     }
 
     public String getFirstname() {
@@ -67,9 +87,11 @@ public class Passenger {
         String dateFormatted = dateOfAquisition.format(formatter);
 
         return "Passenger :" +
-                "name='" + firstname + " " + lastname +'\'' +
-                ", flight='" + flight + '\'' +
-                ", idNumber='" + idNumber + '\'' +
+                "id reservation= " + idReservation +
+                ", name=" + firstname + " " + lastname +
+                ", flight=" + flight +
+                ", idNumber=" + idNumber +
+                ", seats reserved=" + seats +
                 ", dateOfAquisition=" + dateFormatted;
     }
 }

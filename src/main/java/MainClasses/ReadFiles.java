@@ -11,17 +11,16 @@ public class ReadFiles {
     private static final String flightsTxt = "src/main/resources/flights.txt";
     private static final String passengersTxt = "src/main/resources/passengers.txt";
     private static final String planesTxt = "src/main/resources/planes.txt";
-    private static final String seatsTxt = "src/main/resources/seats.txt";
 
     public static Map<String, Flight> readFlights() {
         Map<String, Flight> listOfFlights = new HashMap<>();
         File file = new File(flightsTxt);
         try (FileReader fileReader = new FileReader(file); BufferedReader bufferedReader = new BufferedReader(fileReader)) {
             String line;
-            while ((line = bufferedReader.readLine()) != null ) {
+            while ((line = bufferedReader.readLine()) != null) {
                 List<String> list = List.of(line.split(","));
-                listOfFlights.put(list.get(1), new Flight(list.get(0), list.get(1), list.get(2), list.get(3), Integer.parseInt(list.get(4)),
-                        LocalTime.of(Integer.parseInt(list.get(5)), Integer.parseInt(list.get(6)))));
+                listOfFlights.put(list.get(1), new Flight(list.get(0), list.get(1), list.get(2), list.get(3), Integer.parseInt(list.get(4)),Integer.parseInt(list.get(5)),
+                        LocalTime.of(Integer.parseInt(list.get(6)), Integer.parseInt(list.get(7)))));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -40,6 +39,7 @@ public class ReadFiles {
                         .append(flight.getDepartureCity()).append(",")
                         .append(flight.getDestinationCity()).append(",")
                         .append(flight.getDistance()).append(",")
+                        .append(flight.getRemainingSeats()).append(",")
                         .append(flight.getDepartureTime().getHour()).append(",")
                         .append(flight.getDepartureTime().getMinute())
                         .append("\n"));
@@ -52,14 +52,14 @@ public class ReadFiles {
         saveFlightsThread.start();
     }
 
-    public static Map<String, Passenger> readPassengers() {
-        Map<String, Passenger> listOfPassengers = new HashMap<>();
+    public static Map<Integer, Passenger> readPassengers() {
+        Map<Integer, Passenger> listOfPassengers = new HashMap<>();
         File file = new File(passengersTxt);
         try (FileReader fileReader = new FileReader(file); BufferedReader bufferedReader = new BufferedReader(fileReader)) {
             String line;
-            while ((line = bufferedReader.readLine()) != null ) {
+            while ((line = bufferedReader.readLine()) != null) {
                 List<String> list = List.of(line.split(","));
-                listOfPassengers.put(list.get(3), new Passenger(list.get(0), list.get(1), list.get(2), list.get(3), LocalDateTime.parse(list.get(4))));
+                listOfPassengers.put(Integer.parseInt(list.get(0)), new Passenger(Integer.parseInt(list.get(0)), list.get(1), list.get(2), list.get(3), list.get(4),Integer.parseInt(list.get(5)), LocalDateTime.parse(list.get(6))));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -67,16 +67,18 @@ public class ReadFiles {
         return listOfPassengers;
     }
 
-    public static void updatePassengers(Map<String, Passenger> passengers) {
+    public static void updatePassengers(Map<Integer, Passenger> passengers) {
         Runnable savePassengers = () -> {
             File file = new File(passengersTxt);
             try (FileWriter fileWriter = new FileWriter(file)) {
                 final StringBuilder stringBuilder = new StringBuilder();
                 passengers.forEach((key, passenger) -> stringBuilder
+                        .append(passenger.getIdReservation()).append(",")
                         .append(passenger.getFirstname()).append(",")
                         .append(passenger.getLastname()).append(",")
                         .append(passenger.getFlight()).append(",")
                         .append(passenger.getIdNumber()).append(",")
+                        .append(passenger.getSeats()).append(",")
                         .append(passenger.getDateOfAquisition())
                         .append("\n"));
                 fileWriter.write(stringBuilder.toString());
@@ -93,7 +95,7 @@ public class ReadFiles {
         File file = new File(planesTxt);
         try (FileReader fileReader = new FileReader(file); BufferedReader bufferedReader = new BufferedReader(fileReader)) {
             String line;
-            while ((line = bufferedReader.readLine()) != null ) {
+            while ((line = bufferedReader.readLine()) != null) {
                 List<String> list = List.of(line.split(","));
                 listOfPlanes.put(list.get(0), new Plane(list.get(0), Integer.parseInt(list.get(1)), Integer.parseInt(list.get(2))));
             }
@@ -121,23 +123,7 @@ public class ReadFiles {
         Thread savePlanesThread = new Thread(savePlanes);
         savePlanesThread.start();
     }
-
-    //TODO de finalizat citirea fisiere , corectat si de facut metoda si pentru salvare
-    //TODO de facut metoda pentru fiecare fisier in parte
-    public static Map<String, Seats> readSeats() {
-        Map<String, Seats> listOfSeats = new HashMap<>();
-        File file = new File(seatsTxt);
-        try (FileReader fileReader = new FileReader(file); BufferedReader bufferedReader = new BufferedReader(fileReader)) {
-            String line;
-            while ((line = bufferedReader.readLine()) != null ) {
-                List<String> list = List.of(line.split(","));
-                listOfSeats.put(list.get(0), new Seats());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return listOfSeats;
-    }
 }
+
+
 

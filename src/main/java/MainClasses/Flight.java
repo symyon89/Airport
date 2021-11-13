@@ -10,24 +10,35 @@ public class Flight {
     private String destinationCity;
     private String departureCity;
     private int distance;
+    private int remainingSeats;
     LocalTime departureTime;
 
-    public Flight(String plane,String flight, String departureCity, String destinationCity, int distance, LocalTime departureTime) {
+    public Flight(String plane,String flight, String departureCity, String destinationCity, int distance,int remainingSeats ,LocalTime departureTime) {
         this.flight = flight;
         this.plane = plane;
         this.destinationCity = destinationCity;
         this.departureCity = departureCity;
         this.distance = distance;
         this.departureTime = departureTime;
+        this.remainingSeats = remainingSeats;
     }
 
     public Flight() {
 
     }
 
+    public int getRemainingSeats() {
+        return remainingSeats;
+    }
+
+    public void setRemainingSeats(int remainingSeats) {
+        this.remainingSeats = remainingSeats;
+    }
+
     public String getFlight() {
         return flight;
     }
+
     public void setFlight(String flight) {
         this.flight = flight;
     }
@@ -92,11 +103,12 @@ public class Flight {
     @Override
     public String toString() {
         return "Flight : " +
-                "flight='" + flight + '\'' +
-                ", plane='" + plane + '\'' +
-                ", departureCity='" + departureCity + '\'' +
-                ", destinationCity='" + destinationCity + '\'' +
+                "flight=" + flight +
+                ", plane=" + plane + '\'' +
+                ", departureCity=" + departureCity +
+                ", destinationCity=" + destinationCity +
                 ", distance=" + distance +
+                ", remaining seats=" + remainingSeats +
                 ", departureTime=" + departureTime;
     }
 }

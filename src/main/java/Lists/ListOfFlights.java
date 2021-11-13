@@ -21,8 +21,8 @@ public class ListOfFlights {
     private final TravelTime travelHours = (dist, avg) -> (dist / avg);
     private final TravelTime travelminutes = (dist, avg) -> (int) (((dist / (avg * 1.0)) - ((dist / avg))) * 60);
     private List<String> flightList = new ArrayList<>();
-    Scanner scannerText = new Scanner(System.in);
-    Scanner scannerNumber = new Scanner(System.in);
+    private final Scanner scannerText = new Scanner(System.in);
+    private final Scanner scannerNumber = new Scanner(System.in);
 
     public ListOfFlights() {
         Runnable readFlights = () -> flights = ReadFiles.readFlights();
@@ -76,6 +76,7 @@ public class ListOfFlights {
             return;
         }
         String flightCode = flightList.get(flightIndex - 1);
+        int remainingSeats = flights.get(flightCode).getRemainingSeats();
         Flight flight = new Flight();
         try {
             newFlight(flight);
@@ -83,6 +84,7 @@ public class ListOfFlights {
             System.out.println(e.getMessage());
             return;
         }
+        flight.setRemainingSeats(remainingSeats);
         flights.replace(flightCode, flight);
         ReadFiles.updateFlights(flights);
 
@@ -95,6 +97,7 @@ public class ListOfFlights {
             checkFlightIndex(flightIndex);
         } catch (WrongIndexException e) {
             System.out.println(e.getMessage());
+            return;
         }
         String flightCode = flightList.get(flightIndex - 1);
         flights.remove(flightCode);
@@ -149,6 +152,15 @@ public class ListOfFlights {
         }
     }
 
+    public String returnFlightFromIndex(int index) throws WrongIndexException{
+        checkFlightIndex(index);
+        return flightList.get(index - 1);
+    }
+    public void updateSeats(String flight, int seats){
+        flights.get(flight).setRemainingSeats(flights.get(flight).getRemainingSeats() - seats);
+        ReadFiles.updateFlights(flights);
+    }
+
 
     private void newFlight(Flight flight) throws WrongIndexException {
 
@@ -165,6 +177,7 @@ public class ListOfFlights {
         flight.setDestinationCity(scannerText.nextLine());
         System.out.println("Enter distance :");
         flight.setDistance(scannerNumber.nextInt());
+        flight.setRemainingSeats(planes.get(listOfPlanes.get(option - 1)).getNumebrOfSeats());
         enterDate(flight);
     }
 
