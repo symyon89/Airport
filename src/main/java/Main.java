@@ -1,14 +1,9 @@
-import Menu.FlightMenu;
-import Menu.PassengerMenu;
-import Menu.PlaneMenu;
+import Menu.MainMenu;
+
 
 public class Main {
     public static void main(String[] args) {
-//        FlightMenu flightMenu = new FlightMenu();
-//        flightMenu.menu();
-//        PlaneMenu planeMenu = new PlaneMenu();
-//        planeMenu.menu();
-        PassengerMenu passengerMenu = new PassengerMenu();
-        passengerMenu.menu();
+        MainMenu menu = new MainMenu();
+        menu.menu();
     }
 }
