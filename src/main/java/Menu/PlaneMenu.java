@@ -29,9 +29,9 @@ public class PlaneMenu {
         switch (menuOption){
             case 1 -> planes.showPlanes();
             case 2 -> planes.addPlane();
-            case 3 -> planes.showPlanes();
-            case 4 -> planes.showPlanes();
-            case 5 -> planes.showPlanes();
+            case 3 -> planes.updatePlane();
+            case 4 -> planes.deletePlane();
+            case 5 -> planes.searchByPlaneName();
             case 0 -> System.out.println("Goodbye!");
             default -> System.out.println("Invalid option");
         }
