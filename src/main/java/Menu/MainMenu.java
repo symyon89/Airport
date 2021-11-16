@@ -7,14 +7,14 @@ public class MainMenu {
         int option;
         Scanner scanner = new Scanner(System.in);
         do {
-            menuOptions();
+            options();
             option = scanner.nextInt();
-            menuAction(option);
+            action(option);
 
         }while (option != 0);
 
     }
-    private void menuOptions(){
+    private void options(){
         System.out.println("1.Flight menu");
         System.out.println("2.Passenger menu");
         System.out.println("3.Plane menu");
@@ -22,7 +22,7 @@ public class MainMenu {
         System.out.println("Choose an option : ");
     }
 
-    private void menuAction(int index){
+    private void action(int index){
         switch (index) {
             case 1 -> {
                 FlightMenu flightMenu = new FlightMenu();

@@ -81,10 +81,13 @@ public class Passenger {
         this.dateOfAquisition = dateOfAquisition;
     }
 
+    private String formatDate(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return dateOfAquisition.format(formatter);
+    }
+
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String dateFormatted = dateOfAquisition.format(formatter);
 
         return "Passenger :" +
                 "id reservation= " + idReservation +
@@ -92,6 +95,6 @@ public class Passenger {
                 ", flight=" + flight +
                 ", idNumber=" + idNumber +
                 ", seats reserved=" + seats +
-                ", dateOfAquisition=" + dateFormatted;
+                ", dateOfAquisition=" + formatDate();
     }
 }

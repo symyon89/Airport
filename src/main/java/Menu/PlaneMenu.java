@@ -7,7 +7,8 @@ import java.util.Scanner;
 public class PlaneMenu {
     ListOfPlanes planes = new ListOfPlanes();
     Scanner scannerNumber = new Scanner(System.in);
-    private void mainMenu(){
+
+    private void options(){
         System.out.println("1.Show Planes");
         System.out.println("2.Add Plane");
         System.out.println("3.Update Plane");
@@ -20,12 +21,12 @@ public class PlaneMenu {
     public void menu(){
         byte menuOption;
         do {
-            mainMenu();
+            options();
             menuOption = scannerNumber.nextByte();
-            menuAction(menuOption);
+            Action(menuOption);
         }while (menuOption != 0);
     }
-    private void menuAction(byte menuOption) {
+    private void Action(byte menuOption) {
         switch (menuOption){
             case 1 -> planes.showPlanes();
             case 2 -> planes.addPlane();

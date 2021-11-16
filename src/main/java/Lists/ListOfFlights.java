@@ -87,9 +87,9 @@ public class ListOfFlights {
         flight.setRemainingSeats(remainingSeats);
         flights.replace(flightCode, flight);
         ReadFiles.updateFlights(flights);
-
     }
-    public void deleteFlight(){
+
+    public void deleteFlight() {
         showFlights();
         System.out.println("Choose Flight to delete");
         int flightIndex = scannerNumber.nextInt();
@@ -104,7 +104,7 @@ public class ListOfFlights {
         ReadFiles.updateFlights(flights);
     }
 
-    public void showFlightsByDepartureCity(){
+    public void showFlightsByDepartureCity() {
         System.out.println("Enter city :");
         String city = scannerText.nextLine();
         index.set(1);
@@ -115,11 +115,12 @@ public class ListOfFlights {
                         + travelminutes.calculateTime(flight.getDistance(), planes.get(flight.getPlane()).getAverageSpeed()) + " minutes");
             }
         });
-        if (index.get() == 1){
+        if (index.get() == 1) {
             System.out.println("No flight found for " + city);
         }
     }
-    public void showFlightsByDestinationCity(){
+
+    public void showFlightsByDestinationCity() {
         System.out.println("Enter city :");
         String city = scannerText.nextLine();
         index.set(1);
@@ -130,11 +131,12 @@ public class ListOfFlights {
                         + travelminutes.calculateTime(flight.getDistance(), planes.get(flight.getPlane()).getAverageSpeed()) + " minutes");
             }
         });
-        if (index.get() == 1){
+        if (index.get() == 1) {
             System.out.println("No flight found for " + city);
         }
     }
-    public void showFlightsByDestinationAndDepartureCity(){
+
+    public void showFlightsByDestinationAndDepartureCity() {
         System.out.println("Enter departure city :");
         String departureCity = scannerText.nextLine();
         System.out.println("Enter arrival city :");
@@ -147,16 +149,17 @@ public class ListOfFlights {
                         + travelminutes.calculateTime(flight.getDistance(), planes.get(flight.getPlane()).getAverageSpeed()) + " minutes");
             }
         });
-        if (index.get() == 1){
+        if (index.get() == 1) {
             System.out.println("No flight found for " + departureCity + " - " + arrivalCity);
         }
     }
 
-    public String returnFlightFromIndex(int index) throws WrongIndexException{
+    public String returnFlightFromIndex(int index) throws WrongIndexException {
         checkFlightIndex(index);
         return flightList.get(index - 1);
     }
-    public void updateSeats(String flight, int seats){
+
+    public void updateSeats(String flight, int seats) {
         flights.get(flight).setRemainingSeats(flights.get(flight).getRemainingSeats() - seats);
         ReadFiles.updateFlights(flights);
     }

@@ -8,7 +8,7 @@ public class FlightMenu {
     ListOfFlights flights = new ListOfFlights();
     Scanner scannerNumber = new Scanner(System.in);
 
-    private void mainMenu(){
+    private void options(){
         System.out.println("1.Show Flights");
         System.out.println("2.Add Flight");
         System.out.println("3.Update Flight");
@@ -20,15 +20,15 @@ public class FlightMenu {
         System.out.print("Choose option :");
     }
     public void menu(){
-        byte menuOption;
+        byte selectedOption;
         do {
-            mainMenu();
-            menuOption = scannerNumber.nextByte();
-            menuAction(menuOption);
-        }while (menuOption != 0);
+            options();
+            selectedOption = scannerNumber.nextByte();
+            action(selectedOption);
+        }while (selectedOption != 0);
     }
 
-    private void menuAction(byte menuOption) {
+    private void action(byte menuOption) {
         switch (menuOption){
             case 1 -> flights.showFlights();
             case 2 -> flights.addFlight();

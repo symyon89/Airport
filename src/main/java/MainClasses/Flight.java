@@ -11,7 +11,7 @@ public class Flight {
     private String departureCity;
     private int distance;
     private int remainingSeats;
-    LocalTime departureTime;
+    private LocalTime departureTime;
 
     public Flight(String plane,String flight, String departureCity, String destinationCity, int distance,int remainingSeats ,LocalTime departureTime) {
         this.flight = flight;

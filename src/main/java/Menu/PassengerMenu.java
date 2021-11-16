@@ -8,7 +8,7 @@ public class PassengerMenu {
     ListOfPassengers passengers = new ListOfPassengers();
     Scanner scannerNumber = new Scanner(System.in);
 
-    private void mainMenu(){
+    private void options(){
         System.out.println("1.Show Paseengers");
         System.out.println("2.Rezerve flight");
         System.out.println("3.Update reservation");
@@ -21,12 +21,12 @@ public class PassengerMenu {
     public void menu(){
         byte menuOption;
         do {
-            mainMenu();
+            options();
             menuOption = scannerNumber.nextByte();
-            menuAction(menuOption);
+            Action(menuOption);
         }while (menuOption != 0);
     }
-    private void menuAction(byte menuOption) {
+    private void Action(byte menuOption) {
         switch (menuOption){
             case 1 -> passengers.showPassengers();
             case 2 -> passengers.flightReservation();

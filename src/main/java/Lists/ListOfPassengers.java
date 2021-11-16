@@ -87,8 +87,7 @@ public class ListOfPassengers {
     }
 
     private void addPassengerDetails(Passenger passenger) {
-        ListOfFlights flights = new ListOfFlights();
-        flights.showFlights();
+        ListOfFlights flights = showFlights();
         System.out.println("Choose flight to reserve : ");
         int option = scannerNumber.nextInt();
         String flight;
@@ -112,8 +111,7 @@ public class ListOfPassengers {
     }
 
     public void showPassengersByPlaneName() {
-        ListOfFlights flights = new ListOfFlights();
-        flights.showFlights();
+        showFlights();
         System.out.println("Enter flight : ");
         String flight = scannerNumber.nextLine();
         AtomicInteger index = new AtomicInteger();
@@ -126,5 +124,11 @@ public class ListOfPassengers {
         if (index.get() == 1) {
             System.out.println("No passengers found");
         }
+    }
+
+    private ListOfFlights showFlights(){
+        ListOfFlights flights = new ListOfFlights();
+        flights.showFlights();
+        return flights;
     }
 }
