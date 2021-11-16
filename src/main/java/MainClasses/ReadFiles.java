@@ -1,6 +1,8 @@
 package MainClasses;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.HashMap;
@@ -14,17 +16,20 @@ public class ReadFiles {
 
     public static Map<String, Flight> readFlights() {
         Map<String, Flight> listOfFlights = new HashMap<>();
-        File file = new File(flightsTxt);
-        try (FileReader fileReader = new FileReader(file); BufferedReader bufferedReader = new BufferedReader(fileReader)) {
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                List<String> list = List.of(line.split(","));
-                listOfFlights.put(list.get(1), new Flight(list.get(0), list.get(1), list.get(2), list.get(3), Integer.parseInt(list.get(4)),Integer.parseInt(list.get(5)),
-                        LocalTime.of(Integer.parseInt(list.get(6)), Integer.parseInt(list.get(7)))));
-            }
+
+        try {
+            Files.lines(Path.of(flightsTxt))
+                    .map(flight -> {
+                        List<String> list = List.of(flight.split(","));
+                        return new Flight(list.get(0), list.get(1), list.get(2), list.get(3), Integer.parseInt(list.get(4)),Integer.parseInt(list.get(5)),
+                                LocalTime.of(Integer.parseInt(list.get(6)), Integer.parseInt(list.get(7))));
+                    })
+                    .forEach(flight -> listOfFlights.put(flight.getFlight(),flight));
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
         return listOfFlights;
     }
 
