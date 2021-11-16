@@ -13,8 +13,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ListOfPlanes {
     private Map<String, Plane> planes;
     private final AtomicInteger index = new AtomicInteger();
-    private Scanner scannerText = new Scanner(System.in);
-    private Scanner scannerNumber = new Scanner(System.in);
+    private final Scanner scannerText = new Scanner(System.in);
+    private final Scanner scannerNumber = new Scanner(System.in);
     private List<String> listPlanes = new ArrayList<>();
 
     public ListOfPlanes() {
